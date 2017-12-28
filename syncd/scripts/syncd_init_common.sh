@@ -109,6 +109,15 @@ config_syncd_barefoot()
      export LD_PRELOAD=libswitchapi.so:libswitchsai.so:libpd.so:libpdcli.so:libdriver.so:libbfsys.so
 }
 
+config_syncd_nephos()
+{
+    CMD_ARGS+=" -p $HWSKU_DIR/sai.profile"
+
+    if [ $FAST_REBOOT == "yes" ]; then
+        CMD_ARGS+=" -t fast"
+    fi
+}
+
 config_syncd()
 {
     if [ "$SONIC_ASIC_TYPE" == "broadcom" ]; then
@@ -121,6 +130,8 @@ config_syncd()
         config_syncd_centec
     elif [ "$SONIC_ASIC_TYPE" == "marvell" ]; then
         config_syncd_marvell
+    elif [ "$SONIC_ASIC_TYPE" == "nephos" ]; then
+        config_syncd_nephos
      elif [ "$SONIC_ASIC_TYPE" == "barefoot" ]; then
          config_syncd_barefoot
     else
