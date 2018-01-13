@@ -107,6 +107,9 @@ config_syncd_barefoot()
      . /opt/bfn/install/bin/dma_setup.sh
      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/bfn/install/lib:/opt/bfn/install/lib/tofinopd/switch
      export LD_PRELOAD=libswitchapi.so:libswitchsai.so:libpd.so:libpdcli.so:libdriver.so:libbfsys.so
+    if [ $FAST_REBOOT == "yes" ]; then
+        CMD_ARGS+=" -t fast"
+    fi
 }
 
 config_syncd_nephos()
